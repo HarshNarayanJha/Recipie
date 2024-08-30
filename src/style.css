@@ -4,6 +4,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-user-select: none;
 }
 
 :root {
@@ -110,4 +111,12 @@ button {
   button:active {
     background-color: #0f0f0f69;
   }
+}
+
+img {
+  -webkit-user-drag: none;
+}
+
+p {
+  -webkit-user-select: text;
 }

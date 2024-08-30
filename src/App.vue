@@ -1,16 +1,17 @@
 <script setup>
 import { ref } from "vue";
 import { invoke } from "@tauri-apps/api/tauri";
-import RecipeCard from './components/RecipeCard.vue';
+import CategoryCard from './components/CategoryCard.vue';
 
-const recipeData = ref([]);
+const categoryData = ref([]);
 
-async function getAllRecipies() {
-  recipeData.value = await invoke("get_recipies");
+async function getAllCategories() {
+  categoryData.value = await invoke("get_all_categories");
+  console.log(categoryData.value);
 }
 
 document.addEventListener("DOMContentLoaded", async (e) => {
-  await getAllRecipies();
+  await getAllCategories();
 });
 </script>
 
@@ -19,8 +20,9 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     <h1>Welcome to Recipie!</h1>
     <p>Here you will find information on every type of recipe!</p>
 
-    <div class="fruits">
-      <RecipeCard v-for="recipe in recipeData" :key="recipe.id" :recipe="recipe" />
+    <h2>Categories</h2>
+    <div class="categories">
+      <CategoryCard v-for="category in categoryData.categories" :key="category.idCategory" :category="category" />
     </div>
   </div>
 </template>
@@ -28,35 +30,39 @@ document.addEventListener("DOMContentLoaded", async (e) => {
 <style scoped>
 
 h1 {
-  margin-bottom: 1rem;
+  font-size: 4rem;
+  margin-bottom: 0.5em;
 }
 
 h1 + p {
+  font-size: 1.2rem;
   color: rgb(192, 192, 192);
 }
 
-.fruits {
+h2 {
+  text-align: left;
+  margin: 2.5rem;
+  margin-top: 5rem;
+  margin-bottom: 0;
+  font-size: 3rem;
+}
+
+.categories {
   margin: 25px;
   padding: 25px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-gap: 2.5rem;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 2rem;
 }
 
 @media (max-width: 1500px) {
- .fruits {
-   grid-template-columns: repeat(3, 1fr);
- }
-}
-
-@media (max-width: 900px) {
- .fruits {
+ .categories {
    grid-template-columns: repeat(2, 1fr);
  }
 }
 
-@media (max-width: 700px) {
- .fruits {
+@media (max-width: 900px) {
+ .categories {
    grid-template-columns: repeat(1, 1fr);
  }
 }
