@@ -11,10 +11,10 @@ mod category;
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 async fn get_all_categories() -> Catagories {
-    let url = String::from("https://www.themealdb.com/api/json/v1/1/categories.php");
+    let categories_url = String::from("https://www.themealdb.com/api/json/v1/1/categories.php");
 
-    let request = Client::new()
-        .get(url)
+    let categories = Client::new()
+        .get(categories_url)
         .send()
         .await
         .unwrap()
@@ -22,7 +22,7 @@ async fn get_all_categories() -> Catagories {
         .await
         .unwrap();
 
-    request
+    categories
 }
 
 fn main() {
